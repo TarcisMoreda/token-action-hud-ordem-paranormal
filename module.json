@@ -1,0 +1,31 @@
+{
+  "id": "token-action-hud-ordem-paranormal",
+  "title": "Token Action HUD Ordem Paranormal",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "esmodules": [
+    "scripts/init.js"
+  ],
+  "styles": [
+    "./styles/op-template-style.css"
+  ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "token-action-hud-core",
+        "type": "module",
+        "compatibility": {}
+      }
+    ],
+    "systems": [
+      {
+        "id": "ordemparanormal",
+        "type": "system",
+        "compatibility": {}
+      }
+    ]
+  }
+}
