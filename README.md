@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/45078570-3aed-46f3-b7f7-9a7eada65063)# Token Action HUD Ordem Paranormal
+# Token Action HUD Ordem Paranormal
 
 Token Action HUD é uma interface reposicionável que mostra as ações do token selecionado.
 
