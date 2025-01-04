@@ -40,70 +40,119 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @private
          */
         #buildCharacterActions() {
-            // this.buildSkills()
+            this.buildSkills()
             this.buildInventory()
-            // this.buildAbilities()
-            // this.buildRituals()
+            this.buildAbilities()
+            this.buildRituals()
         }
 
         async buildSkills() {
-            const actions = []
-            for (const [_, skill] of Object.entries(this.actor.system.skills)) {
+            const skills = []
+            for (const [id, skill] of Object.entries(this.actor.system.skills)) {
+                let content = skill.formula.replace('kh', '')
+                if (content.includes('kl')) {
+                    content = content.replace('kl', '')
+                    content += " (Desvantagem)"
+                }
+
                 const tooltip = {
-                    content: '' + skill.formula.replace('kh', '') + '',
+                    content: '' + content + '',
                     direction: 'LEFT'
                 }
-                actions.push({
+                skills.push({
                     name: skill.label,
-                    id: skill.label,
+                    id: id,
                     tooltip,
-                    encodedValue: ['skills', skill.label].join(this.delimiter)
+                    encodedValue: ['skills', id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(actions.sort((a, b) => a.name.localeCompare(b.name)), { id: 'skills', type: 'system' })
+            await this.addActions(skills.sort((a, b) => a.name.localeCompare(b.name)), { id: 'skills', type: 'system' })
         }
 
         async buildInventory() {
-            const items = []
-            for (const [id, item] of this.items.entries()) {
-                const type = item.type
-                let tooltip = {
-                    content: '' + "test1" + '',
-                    direction: 'LEFT'
-                }
-                switch (type) {
-                    case 'armament':
-                    case 'protection':
-                    case 'generalEquipment':
-                        break
-                    default:
+            const buildArmament = async () => {
+                const items = []
+                for (const [id, item] of this.items.entries()) {
+                    const type = item.type
+                    if (type != 'armament')
                         continue
+
+                    const info = item.system
+                    const skill = `op.skill.${info["formulas"]["attack"]["skill"]}`
+                    const tooltip = {
+                        content: '' + `${coreModule.api.Utils.i18n(skill)} | ${info["formulas"]["damage"]["formula"]} | ${info["critical"]} | ${info["range"]}` + '',
+                        direction: 'LEFT'
+                    }
+
+                    items.push({
+                        name: item.name,
+                        id: id,
+                        img: item.img,
+                        tooltip,
+                        encodedValue: ['inventory', id].join(this.delimiter)
+                    })
                 }
 
-                items.push({
-                    name: item.name,
-                    id: id,
-                    tooltip,
-                    encodedValue: ['inventory', id].join(this.delimiter)
-                })
+                await this.addActions(items.sort((a, b) => a.name.localeCompare(b.name)), { id: 'armament', type: 'system' })
+            }
+            const buildProtection = async () => {
+                const items = []
+                for (const [id, item] of this.items.entries()) {
+                    const type = item.type
+                    if (type != 'protection')
+                        continue
+
+                    items.push({
+                        name: item.name,
+                        id: id,
+                        img: item.img,
+                        encodedValue: ['inventory', id].join(this.delimiter)
+                    })
+                }
+
+                await this.addActions(items.sort((a, b) => a.name.localeCompare(b.name)), { id: 'protection', type: 'system' })
+            }
+            const buildGeneralEquipment = async () => {
+                const items = []
+                for (const [id, item] of this.items.entries()) {
+                    const type = item.type
+                    if (type != 'generalEquipment')
+                        continue
+
+                    items.push({
+                        name: item.name,
+                        id: id,
+                        img: item.img,
+                        encodedValue: ['inventory', id].join(this.delimiter)
+                    })
+                }
+
+                await this.addActions(items.sort((a, b) => a.name.localeCompare(b.name)), { id: 'generalEquipment', type: 'system' })
             }
 
-            await this.addActions(items.sort((a, b) => a.name.localeCompare(b.name)), { id: 'inventory', type: 'system' })
+            await buildArmament()
+            await buildProtection()
+            await buildGeneralEquipment()
         }
 
         async buildAbilities() {
             const abilities = []
-            for (const [_, ability] of Object.entries(this.actor.system.skills)) {
+            for (const [id, ability] of this.items.entries()) {
+                const type = ability.type
+                if (type != 'ability')
+                    continue
+
                 const tooltip = {
-                    content: '' + skill.formula.replace('kh', '') + '',
+                    content: '' + ability['system']['description'] + '',
                     direction: 'LEFT'
                 }
                 abilities.push({
                     name: ability.name,
-                    id: this.actor._id + ability.name,
+                    id: id,
                     tooltip,
-                    encodedValue: ['abilities', ability.name].join(this.delimiter)
+                    img: ability.img,
+                    encodedValue: ['abilities', id].join(this.delimiter)
                 })
             }
 
@@ -111,21 +160,26 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         async buildRituals() {
-            const actions = []
-            for (const [_, skill] of Object.entries(this.actor.system.skills)) {
+            const rituals = []
+            for (const [id, ritual] of this.items.entries()) {
+                const type = ritual.type
+                if (type != 'ritual')
+                    continue
+
                 const tooltip = {
-                    content: '' + skill.formula.replace('kh', '') + '',
+                    content: '' + ritual['system']['description'] + '',
                     direction: 'LEFT'
                 }
-                actions.push({
-                    name: skill.label,
-                    id: this.actor._id + skill.label,
+                rituals.push({
+                    name: ritual.name,
+                    id: id,
                     tooltip,
-                    encodedValue: ['rituals', skill.label].join(this.delimiter)
+                    img: ritual.img,
+                    encodedValue: ['rituals', id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(actions.sort((a, b) => a.name.localeCompare(b.name)), { id: 'rituals', type: 'system' })
+            await this.addActions(rituals.sort((a, b) => a.name.localeCompare(b.name)), { id: 'rituals', type: 'system' })
         }
 
         /**

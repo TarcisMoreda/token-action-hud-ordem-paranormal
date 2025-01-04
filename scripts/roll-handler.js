@@ -12,10 +12,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {object} event        The event
          * @param {string} encodedValue The encoded value
          */
-        async handleActionClick (event, encodedValue) {
+        async handleActionClick(event, encodedValue) {
             const [actionTypeId, actionId] = encodedValue.split('|')
 
-            const knownCharacters = ['agent', 'threat']
+            const knownCharacters = ['agent']
 
             // If single actor is selected
             if (this.actor) {
@@ -40,7 +40,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {object} event        The event
          * @param {string} encodedValue The encoded value
          */
-        async handleActionHover (event, encodedValue) {}
+        async handleActionHover(event, encodedValue) { }
 
         /**
          * Handle group click
@@ -49,7 +49,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {object} event The event
          * @param {object} group The group
          */
-        async handleGroupClick (event, group) {}
+        async handleGroupClick(event, group) { }
 
         /**
          * Handle action
@@ -60,23 +60,39 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string} actionTypeId The action type id
          * @param {string} actionId     The actionId
          */
-        async #handleAction (event, actor, token, actionTypeId, actionId) {
+        async #handleAction(event, actor, token, actionTypeId, actionId) {
             switch (actionTypeId) {
-            case 'skills':
-                await this.#handleSkillsAction(event, actor, actionId)
-                break
+                case 'skills':
+                    await this.#handleSkillsAction(actor, actionId)
+                    break
+                case 'inventory':
+                case 'abilities':
+                case 'rituals':
+                    await this.#handleItemsAction(actor, actionId)
+                    break
             }
         }
 
         /**
          * Handle Skill action
          * @private
-         * @param {object} event    The event
          * @param {object} actor    The actor
          * @param {string} actionId The action id
          */
-        async #handleSkillsAction (event, actor, actionId) {
-            await new Roll(tarcis.getRollData()["skills"]["aim"]["formula"]).toMessage({"flavor": "test"})
+        async #handleSkillsAction(actor, actionId) {
+            const roll_data = actor.getRollData()["skills"][actionId]
+            await new Roll(roll_data["formula"]).toMessage({ "flavor": `Rolando ${roll_data["label"]}` })
+        }
+
+        /**
+         * Handle Item action
+         * @private
+         * @param {object} actor    The actor
+         * @param {string} actionId The action id
+         */
+        async #handleItemsAction(actor, actionId) {
+            const item = actor.items.get(actionId)
+            item.roll()
         }
     }
 })

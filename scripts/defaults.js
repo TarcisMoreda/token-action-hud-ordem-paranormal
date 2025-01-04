@@ -19,7 +19,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'skills',
                 name: coreModule.api.Utils.i18n('op.tab.skills'),
                 groups: [
-                    { ...groups.characteristics, nestId: 'skills_skills' }
+                    { ...groups.skills, nestId: 'skills_skills' },
                 ],
             },
             {
@@ -27,7 +27,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'inventory',
                 name: coreModule.api.Utils.i18n('op.tab.inventory'),
                 groups: [
-                    { ...groups.characteristics, nestId: 'inventory_inventory' }
+                    { ...groups.armament, nestId: 'inventory_armament' },
+                    { ...groups.protection, nestId: 'inventory_protection' },
+                    { ...groups.generalEquipment, nestId: 'inventory_generalEquipment' },
                 ],
             },
             {
@@ -35,7 +37,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'abilities',
                 name: coreModule.api.Utils.i18n('op.tab.abilities'),
                 groups: [
-                    { ...groups.characteristics, nestId: 'abilities_abilities' }
+                    { ...groups.abilities, nestId: 'abilities_abilities' },
+                    // { ...groups.class, nestId: 'abilities_class' },
+                    // { ...groups.paranormal, nestId: 'abilities_paranormal' },
+                    // { ...groups.path, nestId: 'abilities_path' },
+                    // { ...groups.ability, nestId: 'abilities_ability' },
                 ],
             },
             {
@@ -43,7 +49,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'rituals',
                 name: coreModule.api.Utils.i18n('op.tab.rituals'),
                 groups: [
-                    { ...groups.characteristics, nestId: 'rituals_rituals' }
+                    { ...groups.rituals, nestId: 'rituals_rituals' },
+                    // { ...groups.rituals, nestId: 'rituals_level1' },
+                    // { ...groups.rituals, nestId: 'rituals_level2' },
+                    // { ...groups.rituals, nestId: 'rituals_level3' },
+                    // { ...groups.rituals, nestId: 'rituals_level4' },
                 ],
             }
         ],
