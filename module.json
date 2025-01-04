@@ -10,7 +10,7 @@
     "scripts/init.js"
   ],
   "styles": [
-    "./styles/op-template-style.css"
+    "styles/op-template-style.css"
   ],
   "relationships": {
     "requires": [
@@ -27,5 +27,15 @@
         "compatibility": {}
       }
     ]
-  }
+  },
+  "description": "Implementação do Token Action HUD para o sistema Ordem Paranormal.",
+  "authors": [
+    {
+      "name": "Tárcis",
+      "email": "tarcismoreda@gmail.com",
+      "discord": "tarcis_moreda",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/TarcisMoreda/token-action-hud-ordem-paranormal"
 }
