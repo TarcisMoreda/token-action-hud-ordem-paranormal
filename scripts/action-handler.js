@@ -52,7 +52,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 let content = skill.formula.replace('kh', '')
                 if (content.includes('kl')) {
                     content = content.replace('kl', '')
-                    content += " (Desvantagem)"
+                    content += ' (Desvantagem)'
                 }
 
                 const tooltip = {
@@ -79,9 +79,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         continue
 
                     const info = item.system
-                    const skill = `op.skill.${info["formulas"]["attack"]["skill"]}`
+                    const skill = `op.skill.${info['formulas']['attack']['skill']}`
                     const tooltip = {
-                        content: '' + `${coreModule.api.Utils.i18n(skill)} | ${info["formulas"]["damage"]["formula"]} | ${info["critical"]} | ${info["range"]}` + '',
+                        content: '' + `${coreModule.api.Utils.i18n(skill)} | ${info['formulas']['damage']['formula']} | ${info['critical']} | ${info['range']}` + '',
                         direction: 'LEFT'
                     }
 

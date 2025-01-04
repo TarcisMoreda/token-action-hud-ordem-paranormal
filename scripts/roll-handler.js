@@ -19,7 +19,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
             // If single actor is selected
             if (this.actor) {
-                await this.#handleAction(event, this.actor, this.token, actionTypeId, actionId)
+                await this.#handleAction(this.actor, actionTypeId, actionId)
                 return
             }
 
@@ -29,7 +29,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             // If multiple actors are selected
             for (const token of controlledTokens) {
                 const actor = token.actor
-                await this.#handleAction(event, actor, token, actionTypeId, actionId)
+                await this.#handleAction(actor, actionTypeId, actionId)
             }
         }
 
@@ -56,11 +56,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @private
          * @param {object} event        The event
          * @param {object} actor        The actor
-         * @param {object} token        The token
          * @param {string} actionTypeId The action type id
          * @param {string} actionId     The actionId
          */
-        async #handleAction(event, actor, token, actionTypeId, actionId) {
+        async #handleAction(actor, actionTypeId, actionId) {
             switch (actionTypeId) {
                 case 'skills':
                     await this.#handleSkillsAction(actor, actionId)
@@ -80,8 +79,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string} actionId The action id
          */
         async #handleSkillsAction(actor, actionId) {
-            const roll_data = actor.getRollData()["skills"][actionId]
-            await new Roll(roll_data["formula"]).toMessage({ "flavor": `Rolando ${roll_data["label"]}` })
+            const roll_data = actor.getRollData()['skills'][actionId]
+            await new Roll(roll_data['formula']).toMessage({ 'flavor': `Rolando ${roll_data['label']}` })
         }
 
         /**
