@@ -1,4 +1,4 @@
-# Token Action HUD Ordem Paranormal
+![image](https://github.com/user-attachments/assets/45078570-3aed-46f3-b7f7-9a7eada65063)# Token Action HUD Ordem Paranormal
 
 Token Action HUD é uma interface reposicionável que mostra as ações do token selecionado.
 
@@ -11,20 +11,16 @@ Token Action HUD é uma interface reposicionável que mostra as ações do token
 
 # Instalação
 
-## Método 1 - Pelo Foundry
-1. Ainda não funciona, para isso precisa da aprovação do pacote pelo foundry.
+## Método 1 - Pelo Foundry Manual
+1. Na página principal do git clique na última versão (canto inferior direito) ![image](https://github.com/user-attachments/assets/dbe056fe-9f70-43aa-a2f9-7e650e5e2f01)
+2. Clique com o botão direito em module.json e selecione a opção **Copiar Link** ![image](https://github.com/user-attachments/assets/538c0341-40c9-414a-adfd-70c7f0cda4cb)
+3. Vá para o Foundry e entre na tela de módulos e clique no botão de instalar módulos ![image](https://github.com/user-attachments/assets/ceb0f68e-f992-45e9-9ac2-778f9a9f539f)
+4. Cole o link na caixa de texto inferior da janela de instalação e clique no botão de instalar ![image](https://github.com/user-attachments/assets/046ffb7f-9971-48c4-8ea1-5712e9c7c2d0)
+5. Aceite a instalação das dependências
+6. Vá no seu mundo e habilite o Token Action HUD Ordem Paranormal, isso também irá habilitar os outros módulos necessários ![image](https://github.com/user-attachments/assets/2d00276f-45e7-4619-8cb6-4a178556c701)
 
-## Method 2
-1. Instale o **Token Action HUD Core** pelo Foundry com suas dependências.
-1. Baixe o projeto pelo github. ![Token Action HUD](.github/download.png)
-2. Vá para a pasta de módulos do Foundry, normalmente **C:\Users\SEU_USUARIO\AppData\Local\FoundryVTT\Data\modules**.
-3. Extraia o zip na pasta.
+8. Se divirta
 
-No final na sua pasta de módulos deve estar com pelo menos os três módulos a seguir:
-![Pasta com módulos](.github/modules.png)
-
-E a pasta token-action-hud-ordem-paranormal deve ter esses arquivos:
-![Pasta do módulo](.github/module.png)
 
 # Dependências
 
