@@ -21,10 +21,10 @@ Token Action HUD é uma interface reposicionável que mostra as ações do token
 3. Extraia o zip na pasta.
 
 No final na sua pasta de módulos deve estar com pelo menos os três módulos a seguir:
-![Pasta com módulos](.github\modules.png)
+![Pasta com módulos](.github/modules.png)
 
 E a pasta token-action-hud-ordem-paranormal deve ter esses arquivos:
-![Pasta do módulo](.github\module.png)
+![Pasta do módulo](.github/module.png)
 
 # Dependências
 
