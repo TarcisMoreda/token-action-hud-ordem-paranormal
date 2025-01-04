@@ -13,18 +13,17 @@ Token Action HUD é uma interface reposicionável que mostra as ações do token
 
 ## Método 1 - Pelo Foundry Manual
 1. Na página principal do git clique na última versão (canto inferior direito)
-2. ![image](https://github.com/user-attachments/assets/dbe056fe-9f70-43aa-a2f9-7e650e5e2f01)
-3. Clique com o botão direito em module.json e selecione a opção **Copiar Link**
-4. ![image](https://github.com/user-attachments/assets/538c0341-40c9-414a-adfd-70c7f0cda4cb)
-5. Vá para o Foundry e entre na tela de módulos e clique no botão de instalar módulos
-6. ![image](https://github.com/user-attachments/assets/ceb0f68e-f992-45e9-9ac2-778f9a9f539f)
-7. Cole o link na caixa de texto inferior da janela de instalação e clique no botão de instalar
-8. ![image](https://github.com/user-attachments/assets/046ffb7f-9971-48c4-8ea1-5712e9c7c2d0)
-9. Aceite a instalação das dependências
-10. Vá no seu mundo e habilite o Token Action HUD Ordem Paranormal, isso também irá habilitar os outros módulos necessários
-11. ![image](https://github.com/user-attachments/assets/2d00276f-45e7-4619-8cb6-4a178556c701)
-
-12. Se divirta
+![image](https://github.com/user-attachments/assets/dbe056fe-9f70-43aa-a2f9-7e650e5e2f01)
+2. Clique com o botão direito em module.json e selecione a opção **Copiar Link**
+![image](https://github.com/user-attachments/assets/538c0341-40c9-414a-adfd-70c7f0cda4cb)
+3. Vá para o Foundry e entre na tela de módulos e clique no botão de instalar módulos
+![image](https://github.com/user-attachments/assets/ceb0f68e-f992-45e9-9ac2-778f9a9f539f)
+4. Cole o link na caixa de texto inferior da janela de instalação e clique no botão de instalar
+![image](https://github.com/user-attachments/assets/046ffb7f-9971-48c4-8ea1-5712e9c7c2d0)
+5. Aceite a instalação das dependências
+6. Vá no seu mundo e habilite o Token Action HUD Ordem Paranormal, isso também irá habilitar os outros módulos necessários
+![image](https://github.com/user-attachments/assets/2d00276f-45e7-4619-8cb6-4a178556c701)
+7. Se divirta
 
 
 # Dependências
