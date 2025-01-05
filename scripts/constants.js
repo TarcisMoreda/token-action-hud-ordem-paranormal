@@ -32,6 +32,7 @@ export const ACTION_TYPE = {
  */
 export const GROUP = {
     skills: { id: 'skills', name: 'op.tab.skills', type: 'system' },
+    attributes: { id: 'attributes', name: 'op.attributesItem', type: 'system' },
     inventory: { id: 'inventory', name: 'op.tab.inventory', type: 'system' },
     armament: { id: 'armament', name: 'TYPES.Item.armament', type: 'system' },
     protection: { id: 'protection', name: 'TYPES.Item.protection', type: 'system' },

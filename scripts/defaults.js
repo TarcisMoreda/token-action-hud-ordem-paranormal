@@ -19,6 +19,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'skills',
                 name: coreModule.api.Utils.i18n('op.tab.skills'),
                 groups: [
+                    { ...groups.attributes, nestId: 'skills_attributes' },
                     { ...groups.skills, nestId: 'skills_skills' },
                 ],
             },

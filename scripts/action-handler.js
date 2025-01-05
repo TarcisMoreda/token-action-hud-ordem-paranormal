@@ -40,10 +40,32 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @private
          */
         #buildCharacterActions() {
+            this.buildAttributes()
             this.buildSkills()
             this.buildInventory()
             this.buildAbilities()
             this.buildRituals()
+        }
+
+        async buildAttributes() {
+            const attributes = []
+            for (const [id, attribute] of Object.entries(this.actor.system.attributes)) {
+                const attribute_name = coreModule.api.Utils.i18n(`op.att${id.replace(/^./, id[0].toUpperCase())}`)
+                const roll = `${attribute.value==0?2:attribute.value}d20${attribute.value==0?' (Desvantagem)':''}`
+
+                const tooltip = {
+                    content: '' + roll + '',
+                    direction: 'LEFT'
+                }
+                attributes.push({
+                    name: attribute_name,
+                    id: id,
+                    tooltip,
+                    encodedValue: ['attributes', id].join(this.delimiter)
+                })
+            }
+
+            await this.addActions(attributes, { id: 'attributes', type: 'system' })
         }
 
         async buildSkills() {
@@ -67,7 +89,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 })
             }
 
-            await this.addActions(skills.sort((a, b) => a.name.localeCompare(b.name)), { id: 'skills', type: 'system' })
+            await this.addActions(skills, { id: 'skills', type: 'system' })
         }
 
         async buildInventory() {
@@ -79,9 +101,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         continue
 
                     const info = item.system
-                    const skill = `op.skill.${info['formulas']['attack']['skill']}`
+                    const skill = `op.skill.${info.formulas.attack.skill}`
                     const tooltip = {
-                        content: '' + `${coreModule.api.Utils.i18n(skill)} | ${info['formulas']['damage']['formula']} | ${info['critical']} | ${info['range']}` + '',
+                        content: '' + `${coreModule.api.Utils.i18n(skill)} | ${info.formulas.damage.formula} | ${info.critical} | ${info.range}` + '',
                         direction: 'LEFT'
                     }
 
@@ -144,7 +166,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     continue
 
                 const tooltip = {
-                    content: '' + ability['system']['description'] + '',
+                    content: '' + ability.system.description + '',
                     direction: 'LEFT'
                 }
                 abilities.push({
@@ -167,7 +189,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     continue
 
                 const tooltip = {
-                    content: '' + ritual['system']['description'] + '',
+                    content: '' + ritual.system.description + '',
                     direction: 'LEFT'
                 }
                 rituals.push({

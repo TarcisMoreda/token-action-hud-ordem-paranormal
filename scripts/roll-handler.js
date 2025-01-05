@@ -61,6 +61,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          */
         async #handleAction(actor, actionTypeId, actionId) {
             switch (actionTypeId) {
+                case 'attributes':
+                    await this.#handleAttributessAction(actor, actionId)
+                    break
                 case 'skills':
                     await this.#handleSkillsAction(actor, actionId)
                     break
@@ -73,14 +76,27 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         /**
+         * Handle Attribute action
+         * @private
+         * @param {object} actor    The actor
+         * @param {string} actionId The action id
+         */
+        async #handleAttributessAction(actor, actionId) {
+            const attribute = actor.system.attributes[actionId]
+            const attribute_name = coreModule.api.Utils.i18n(`op.att${actionId.replace(/^./, actionId[0].toUpperCase())}`)
+            const formula = `${attribute.value==0?2:attribute.value}d20${attribute.value==0?'kl':'kh'}`
+            await new Roll(formula).toMessage({ 'flavor': `Rolando ${attribute_name}` })
+        }
+
+        /**
          * Handle Skill action
          * @private
          * @param {object} actor    The actor
          * @param {string} actionId The action id
          */
         async #handleSkillsAction(actor, actionId) {
-            const roll_data = actor.getRollData()['skills'][actionId]
-            await new Roll(roll_data['formula']).toMessage({ 'flavor': `Rolando ${roll_data['label']}` })
+            const roll_data = actor.getRollData().skills[actionId]
+            await new Roll(roll_data.formula).toMessage({ 'flavor': `Rolando ${roll_data.label}` })
         }
 
         /**
