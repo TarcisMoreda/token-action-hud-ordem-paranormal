@@ -1,2 +1,4 @@
 node_modules
 package-lock.json
+scripts/token-action-hud-op.min.js
+scripts/token-action-hud-op.min.js.map

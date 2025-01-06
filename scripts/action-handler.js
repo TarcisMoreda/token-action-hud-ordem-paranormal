@@ -182,26 +182,42 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         async buildRituals() {
-            const rituals = []
+            const rituals = {
+                'first': [],
+                'second': [],
+                'third': [],
+                'fourth': []
+            }
+            const num_map = {
+                '1': 'first',
+                '2': 'second',
+                '3': 'third',
+                '4': 'fourth'
+            }
+
             for (const [id, ritual] of this.items.entries()) {
                 const type = ritual.type
                 if (type != 'ritual')
                     continue
 
+                const circle = ritual.system.circle
                 const tooltip = {
                     content: '' + ritual.system.description + '',
                     direction: 'LEFT'
                 }
-                rituals.push({
+                rituals[num_map[circle]].push({
                     name: ritual.name,
                     id: id,
                     tooltip,
                     img: ritual.img,
-                    encodedValue: ['rituals', id].join(this.delimiter)
+                    encodedValue: [`rituals${circle}`, id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(rituals.sort((a, b) => a.name.localeCompare(b.name)), { id: 'rituals', type: 'system' })
+            await this.addActions(rituals['first'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle1', type: 'system' })
+            await this.addActions(rituals['second'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle2', type: 'system' })
+            await this.addActions(rituals['third'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle3', type: 'system' })
+            await this.addActions(rituals['fourth'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle4', type: 'system' })
         }
 
         /**

@@ -50,11 +50,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'rituals',
                 name: coreModule.api.Utils.i18n('op.tab.rituals'),
                 groups: [
-                    { ...groups.rituals, nestId: 'rituals_rituals' },
-                    // { ...groups.rituals, nestId: 'rituals_level1' },
-                    // { ...groups.rituals, nestId: 'rituals_level2' },
-                    // { ...groups.rituals, nestId: 'rituals_level3' },
-                    // { ...groups.rituals, nestId: 'rituals_level4' },
+                    { ...groups.circle1, nestId: 'rituals_circle1' },
+                    { ...groups.circle2, nestId: 'rituals_circle2' },
+                    { ...groups.circle3, nestId: 'rituals_circle3' },
+                    { ...groups.circle4, nestId: 'rituals_circle4' },
                 ],
             }
         ],

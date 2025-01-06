@@ -44,10 +44,9 @@ export const GROUP = {
     // path: { id: 'path', name: 'op.powerTypeChoices.path', type: 'system' },
     // ability: { id: 'ability', name: 'op.powerTypeChoices.ability', type: 'system' },
     rituals: { id: 'rituals', name: 'op.tab.rituals', type: 'system' },
-    // Não consegui dar o nome correto as sub sessões para dividir em círcilos os rituais
-    // circle1: { id: 'circle1', name: 'op.tab.rituals', type: 'system' },
-    // circle2: { id: 'circle2', name: 'op.tab.rituals', type: 'system' },
-    // circle3: { id: 'circle3', name: 'op.tab.rituals', type: 'system' },
-    // circle4: { id: 'circle4', name: 'op.tab.rituals', type: 'system' },
+    circle1: { id: 'circle1', name: 'tokenActionHud.op.circle.first', type: 'system' },
+    circle2: { id: 'circle2', name: 'tokenActionHud.op.circle.second', type: 'system' },
+    circle3: { id: 'circle3', name: 'tokenActionHud.op.circle.third', type: 'system' },
+    circle4: { id: 'circle4', name: 'tokenActionHud.op.circle.fourth', type: 'system' },
 }
 

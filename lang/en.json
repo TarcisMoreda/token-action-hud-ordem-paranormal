@@ -1,0 +1,8 @@
+{
+    "tokenActionHud.op.circle": {
+        "first": "1st Circle",
+        "second": "2nd Circle",
+        "third": "3rd Circle",
+        "fourth": "4th Circle"
+    }
+}
