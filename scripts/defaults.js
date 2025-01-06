@@ -38,11 +38,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 id: 'abilities',
                 name: coreModule.api.Utils.i18n('op.tab.abilities'),
                 groups: [
-                    { ...groups.abilities, nestId: 'abilities_abilities' },
-                    // { ...groups.class, nestId: 'abilities_class' },
-                    // { ...groups.paranormal, nestId: 'abilities_paranormal' },
-                    // { ...groups.path, nestId: 'abilities_path' },
-                    // { ...groups.ability, nestId: 'abilities_ability' },
+                    { ...groups.class, nestId: 'abilities_class' },
+                    { ...groups.paranormal, nestId: 'abilities_paranormal' },
+                    { ...groups.path, nestId: 'abilities_path' },
+                    { ...groups.ability, nestId: 'abilities_ability' },
                 ],
             },
             {

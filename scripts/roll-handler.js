@@ -67,9 +67,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case 'skills':
                     await this.#handleSkillsAction(actor, actionId)
                     break
-                case 'inventory':
-                case 'abilities':
-                case 'rituals':
+                default:
                     await this.#handleItemsAction(actor, actionId)
                     break
             }

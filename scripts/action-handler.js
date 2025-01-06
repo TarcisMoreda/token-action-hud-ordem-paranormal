@@ -51,7 +51,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const attributes = []
             for (const [id, attribute] of Object.entries(this.actor.system.attributes)) {
                 const attribute_name = coreModule.api.Utils.i18n(`op.att${id.replace(/^./, id[0].toUpperCase())}`)
-                const roll = `${attribute.value==0?2:attribute.value}d20${attribute.value==0?' (Desvantagem)':''}`
+                const roll = `${attribute.value == 0 ? 2 : attribute.value}d20${attribute.value == 0 ? ' (Desvantagem)' : ''}`
 
                 const tooltip = {
                     content: '' + roll + '',
@@ -112,7 +112,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         id: id,
                         img: item.img,
                         tooltip,
-                        encodedValue: ['inventory', id].join(this.delimiter)
+                        encodedValue: [type, id].join(this.delimiter)
                     })
                 }
 
@@ -129,7 +129,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         name: item.name,
                         id: id,
                         img: item.img,
-                        encodedValue: ['inventory', id].join(this.delimiter)
+                        encodedValue: [type, id].join(this.delimiter)
                     })
                 }
 
@@ -146,7 +146,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                         name: item.name,
                         id: id,
                         img: item.img,
-                        encodedValue: ['inventory', id].join(this.delimiter)
+                        encodedValue: [type, id].join(this.delimiter)
                     })
                 }
 
@@ -159,7 +159,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         }
 
         async buildAbilities() {
-            const abilities = []
+            const abilities = {
+                'class': [],
+                'paranormal': [],
+                'path': [],
+                'ability': []
+            }
             for (const [id, ability] of this.items.entries()) {
                 const type = ability.type
                 if (type != 'ability')
@@ -169,16 +174,19 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     content: '' + ability.system.description + '',
                     direction: 'LEFT'
                 }
-                abilities.push({
+                abilities[ability.system.abilityType].push({
                     name: ability.name,
                     id: id,
                     tooltip,
                     img: ability.img,
-                    encodedValue: ['abilities', id].join(this.delimiter)
+                    encodedValue: [ability.system.abilityType, id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(abilities.sort((a, b) => a.name.localeCompare(b.name)), { id: 'abilities', type: 'system' })
+            await this.addActions(abilities['class'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'class', type: 'system' })
+            await this.addActions(abilities['paranormal'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'paranormal', type: 'system' })
+            await this.addActions(abilities['path'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'path', type: 'system' })
+            await this.addActions(abilities['ability'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'ability', type: 'system' })
         }
 
         async buildRituals() {
