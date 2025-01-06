@@ -7,4 +7,3 @@ import { MODULE } from './constants.js'
  */
 export function register (coreUpdate) {
 }
-

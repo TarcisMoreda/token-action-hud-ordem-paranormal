@@ -20,8 +20,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 name: coreModule.api.Utils.i18n('op.tab.skills'),
                 groups: [
                     { ...groups.attributes, nestId: 'skills_attributes' },
-                    { ...groups.skills, nestId: 'skills_skills' },
-                ],
+                    { ...groups.skills, nestId: 'skills_skills' }
+                ]
             },
             {
                 nestId: 'inventory',
@@ -30,8 +30,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 groups: [
                     { ...groups.armament, nestId: 'inventory_armament' },
                     { ...groups.protection, nestId: 'inventory_protection' },
-                    { ...groups.generalEquipment, nestId: 'inventory_generalEquipment' },
-                ],
+                    { ...groups.generalEquipment, nestId: 'inventory_generalEquipment' }
+                ]
             },
             {
                 nestId: 'abilities',
@@ -41,8 +41,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     { ...groups.class, nestId: 'abilities_class' },
                     { ...groups.paranormal, nestId: 'abilities_paranormal' },
                     { ...groups.path, nestId: 'abilities_path' },
-                    { ...groups.ability, nestId: 'abilities_ability' },
-                ],
+                    { ...groups.ability, nestId: 'abilities_ability' }
+                ]
             },
             {
                 nestId: 'rituals',
@@ -52,8 +52,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     { ...groups.circle1, nestId: 'rituals_circle1' },
                     { ...groups.circle2, nestId: 'rituals_circle2' },
                     { ...groups.circle3, nestId: 'rituals_circle3' },
-                    { ...groups.circle4, nestId: 'rituals_circle4' },
-                ],
+                    { ...groups.circle4, nestId: 'rituals_circle4' }
+                ]
             }
         ],
         groups: groupsArray

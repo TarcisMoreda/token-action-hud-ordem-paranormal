@@ -14,7 +14,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @override
          * @param {array} groupIds
          */
-        async buildSystemActions(groupIds) {
+        async buildSystemActions (groupIds) {
             // Set actor and token variables
             this.actors = (!this.actor) ? this._getActors() : [this.actor]
             this.actorType = this.actor?.type
@@ -39,7 +39,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * Build character actions
          * @private
          */
-        #buildCharacterActions() {
+        #buildCharacterActions () {
             this.buildAttributes()
             this.buildSkills()
             this.buildInventory()
@@ -47,19 +47,19 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             this.buildRituals()
         }
 
-        async buildAttributes() {
+        async buildAttributes () {
             const attributes = []
             for (const [id, attribute] of Object.entries(this.actor.system.attributes)) {
-                const attribute_name = coreModule.api.Utils.i18n(`op.att${id.replace(/^./, id[0].toUpperCase())}`)
-                const roll = `${attribute.value == 0 ? 2 : attribute.value}d20${attribute.value == 0 ? ' (Desvantagem)' : ''}`
+                const attributeName = coreModule.api.Utils.i18n(`op.att${id.replace(/^./, id[0].toUpperCase())}`)
+                const roll = `${attribute.value === 0 ? 2 : attribute.value}d20${attribute.value === 0 ? ' (Desvantagem)' : ''}`
 
                 const tooltip = {
                     content: '' + roll + '',
                     direction: 'LEFT'
                 }
                 attributes.push({
-                    name: attribute_name,
-                    id: id,
+                    name: attributeName,
+                    id,
                     tooltip,
                     encodedValue: ['attributes', id].join(this.delimiter)
                 })
@@ -68,7 +68,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             await this.addActions(attributes, { id: 'attributes', type: 'system' })
         }
 
-        async buildSkills() {
+        async buildSkills () {
             const skills = []
             for (const [id, skill] of Object.entries(this.actor.system.skills)) {
                 let content = skill.formula.replace('kh', '')
@@ -83,7 +83,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 }
                 skills.push({
                     name: skill.label,
-                    id: id,
+                    id,
                     tooltip,
                     encodedValue: ['skills', id].join(this.delimiter)
                 })
@@ -92,13 +92,14 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             await this.addActions(skills, { id: 'skills', type: 'system' })
         }
 
-        async buildInventory() {
+        async buildInventory () {
             const buildArmament = async () => {
                 const items = []
                 for (const [id, item] of this.items.entries()) {
                     const type = item.type
-                    if (type != 'armament')
+                    if (type !== 'armament') {
                         continue
+                    }
 
                     const info = item.system
                     const skill = `op.skill.${info.formulas.attack.skill}`
@@ -109,7 +110,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
 
                     items.push({
                         name: item.name,
-                        id: id,
+                        id,
                         img: item.img,
                         tooltip,
                         encodedValue: [type, id].join(this.delimiter)
@@ -122,12 +123,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 const items = []
                 for (const [id, item] of this.items.entries()) {
                     const type = item.type
-                    if (type != 'protection')
-                        continue
+                    if (type !== 'protection') { continue }
 
                     items.push({
                         name: item.name,
-                        id: id,
+                        id,
                         img: item.img,
                         encodedValue: [type, id].join(this.delimiter)
                     })
@@ -139,12 +139,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 const items = []
                 for (const [id, item] of this.items.entries()) {
                     const type = item.type
-                    if (type != 'generalEquipment')
-                        continue
+                    if (type !== 'generalEquipment') { continue }
 
                     items.push({
                         name: item.name,
-                        id: id,
+                        id,
                         img: item.img,
                         encodedValue: [type, id].join(this.delimiter)
                     })
@@ -158,17 +157,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             await buildGeneralEquipment()
         }
 
-        async buildAbilities() {
+        async buildAbilities () {
             const abilities = {
-                'class': [],
-                'paranormal': [],
-                'path': [],
-                'ability': []
+                class: [],
+                paranormal: [],
+                path: [],
+                ability: []
             }
             for (const [id, ability] of this.items.entries()) {
                 const type = ability.type
-                if (type != 'ability')
-                    continue
+                if (type !== 'ability') { continue }
 
                 const tooltip = {
                     content: '' + ability.system.description + '',
@@ -176,56 +174,55 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 }
                 abilities[ability.system.abilityType].push({
                     name: ability.name,
-                    id: id,
+                    id,
                     tooltip,
                     img: ability.img,
                     encodedValue: [ability.system.abilityType, id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(abilities['class'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'class', type: 'system' })
-            await this.addActions(abilities['paranormal'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'paranormal', type: 'system' })
-            await this.addActions(abilities['path'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'path', type: 'system' })
-            await this.addActions(abilities['ability'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'ability', type: 'system' })
+            await this.addActions(abilities.class.sort((a, b) => a.name.localeCompare(b.name)), { id: 'class', type: 'system' })
+            await this.addActions(abilities.paranormal.sort((a, b) => a.name.localeCompare(b.name)), { id: 'paranormal', type: 'system' })
+            await this.addActions(abilities.path.sort((a, b) => a.name.localeCompare(b.name)), { id: 'path', type: 'system' })
+            await this.addActions(abilities.ability.sort((a, b) => a.name.localeCompare(b.name)), { id: 'ability', type: 'system' })
         }
 
-        async buildRituals() {
+        async buildRituals () {
             const rituals = {
-                'first': [],
-                'second': [],
-                'third': [],
-                'fourth': []
+                first: [],
+                second: [],
+                third: [],
+                fourth: []
             }
-            const num_map = {
-                '1': 'first',
-                '2': 'second',
-                '3': 'third',
-                '4': 'fourth'
+            const numMap = {
+                1: 'first',
+                2: 'second',
+                3: 'third',
+                4: 'fourth'
             }
 
             for (const [id, ritual] of this.items.entries()) {
                 const type = ritual.type
-                if (type != 'ritual')
-                    continue
+                if (type !== 'ritual') { continue }
 
                 const circle = ritual.system.circle
                 const tooltip = {
                     content: '' + ritual.system.description + '',
                     direction: 'LEFT'
                 }
-                rituals[num_map[circle]].push({
+                rituals[numMap[circle]].push({
                     name: ritual.name,
-                    id: id,
+                    id,
                     tooltip,
                     img: ritual.img,
                     encodedValue: [`rituals${circle}`, id].join(this.delimiter)
                 })
             }
 
-            await this.addActions(rituals['first'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle1', type: 'system' })
-            await this.addActions(rituals['second'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle2', type: 'system' })
-            await this.addActions(rituals['third'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle3', type: 'system' })
-            await this.addActions(rituals['fourth'].sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle4', type: 'system' })
+            await this.addActions(rituals.first.sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle1', type: 'system' })
+            await this.addActions(rituals.second.sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle2', type: 'system' })
+            await this.addActions(rituals.third.sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle3', type: 'system' })
+            await this.addActions(rituals.fourth.sort((a, b) => a.name.localeCompare(b.name)), { id: 'circle4', type: 'system' })
         }
 
         /**
@@ -233,8 +230,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @private
          * @returns {object}
          */
-        #buildMultipleTokenActions() {
+        #buildMultipleTokenActions () {
         }
     }
 })
-
