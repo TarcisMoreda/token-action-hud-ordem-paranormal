@@ -1,7 +1,7 @@
 {
   "id": "token-action-hud-ordem-paranormal",
   "title": "Token Action HUD Ordem Paranormal",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
