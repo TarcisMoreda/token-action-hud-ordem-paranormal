@@ -4,7 +4,7 @@
   "version": "v1.1.0",
   "compatibility": {
     "minimum": "12",
-    "verified": "12"
+    "verified": "12.331"
   },
   "esmodules": [
     "./scripts/token-action-hud-op.min.js"
