@@ -82,8 +82,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         async #handleAttributessAction (actor, actionId) {
             const attribute = actor.system.attributes[actionId]
             const attributeName = coreModule.api.Utils.i18n(`op.att${actionId.replace(/^./, actionId[0].toUpperCase())}`)
-            const formula = `${attribute.value == 0 ? 2 : attribute.value}d20${attribute.value == 0 ? 'kl' : 'kh'}`
-            await new Roll(formula).toMessage({ flavor: `Rolando ${attributeName}` })
+            const formula = `${attribute.value === 0 ? 2 : attribute.value}d20${attribute.value === 0 ? 'kl' : 'kh'}`
+            await new Roll(formula).toMessage({
+                speaker: ChatMessage.getSpeaker(),
+                flavor: `${coreModule.api.Utils.i18n('tokenActionHud.op.rolling')} ${attributeName}`
+            })
         }
 
         /**
@@ -93,8 +96,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          * @param {string} actionId The action id
          */
         async #handleSkillsAction (actor, actionId) {
-            const rollData = actor.getRollData().skills[actionId]
-            await new Roll(rollData.formula).toMessage({ flavor: `Rolando ${rollData.label}` })
+            if (actionId === 'initiative' && actor.inCombat) {
+                await actor.rollInitiative()
+                return
+            }
+
+            const rollData = actor.system.skills[actionId]
+            await new Roll(rollData.formula).toMessage({
+                speaker: ChatMessage.getSpeaker(),
+                flavor: `${coreModule.api.Utils.i18n('tokenActionHud.op.rolling')} ${rollData.label}`
+            })
         }
 
         /**

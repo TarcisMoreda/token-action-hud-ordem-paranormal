@@ -1,8 +1,11 @@
 {
-    "tokenActionHud.op.circle": {
-        "first": "1º Círculo",
-        "second": "2º Círculo",
-        "third": "3º Círculo",
-        "fourth": "4º Círculo"
+    "tokenActionHud.op": {
+        "circle": {
+            "first": "1º Círculo",
+            "second": "2º Círculo",
+            "third": "3º Círculo",
+            "fourth": "4º Círculo"
+        },
+        "rolling": "Rolando"
     }
 }
